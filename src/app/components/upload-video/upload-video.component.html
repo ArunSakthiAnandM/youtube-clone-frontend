@@ -1,0 +1,23 @@
+<p>upload-video Component</p>
+<div class="center">
+  <input
+    class="video-input"
+    type="file"
+    (change)="onChange($event)"
+    #videoUpload
+  />
+  @if (isFileUploaded) {
+  <button mat-raised-button (click)="uploadVideo()">Upload Video</button>
+  }
+</div>
+
+@if (shortLink) {
+<div class="container text-center jumbotron">
+  <h2>Visit Here</h2>
+  <a href="{{ shortLink }}">{{ shortLink }}</a>
+</div>
+} @if (loading) {
+<div class="container">
+  <h3>Loading ...</h3>
+</div>
+}
