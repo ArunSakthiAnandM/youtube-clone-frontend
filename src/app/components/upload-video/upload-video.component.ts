@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { VideoUploadService } from './video-upload.service';
+import { VideoUploadService } from '../../services/video-upload.service';
 import { MatButtonModule } from '@angular/material/button';
 import { Router } from '@angular/router';
 

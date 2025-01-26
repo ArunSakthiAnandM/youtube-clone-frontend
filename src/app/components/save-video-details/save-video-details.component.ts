@@ -18,7 +18,7 @@ import { VgControlsModule } from '@videogular/ngx-videogular/controls';
 import { VgOverlayPlayModule } from '@videogular/ngx-videogular/overlay-play';
 import { VgBufferingModule } from '@videogular/ngx-videogular/buffering';
 import { ActivatedRoute } from '@angular/router';
-import { SaveVideoDetailsService } from './save-video-details.service';
+import { SaveVideoDetailsService } from '../../services/save-video-details.service';
 import { VideoPlayerComponent } from '../video-player/video-player.component';
 // import { SingleMediaPlayer } from './single-media-player';
 
