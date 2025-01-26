@@ -1,0 +1,19 @@
+.svd-container {
+  padding: 16px;
+  display: flex;
+  .box1 {
+    width: 10%;
+  }
+  .box2 {
+    width: 40%;
+    mat-form-field {
+      width: 100%;
+    }
+  }
+  .box3 {
+    width: 30%;
+  }
+  .box4 {
+    width: 20%;
+  }
+}

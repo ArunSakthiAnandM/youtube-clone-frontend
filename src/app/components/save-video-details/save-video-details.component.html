@@ -1,0 +1,68 @@
+<div class="svd-container">
+  <div class="box1"></div>
+  <div class="box2">
+    <form [formGroup]="saveVideoDetails">
+      <mat-form-field>
+        <mat-label>Video Title</mat-label>
+        <input matInput required [formControl]="title" />
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Video Description</mat-label>
+        <input matInput [formControl]="description" />
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Video Visibility</mat-label>
+        <mat-select required [formControl]="videoStatus">
+          <mat-option value="PRIVATE">PRIVATE</mat-option>
+          <mat-option value="PUBLIC">PUBLIC</mat-option>
+          <mat-option value="RESTRICTED">RESTRICTED</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field class="example-chip-list">
+        <mat-label>Tags</mat-label>
+        <mat-chip-grid #chipGrid aria-label="Enter tags">
+          @for (tag of tags(); track tag) {
+          <mat-chip-row
+            (removed)="remove(tag)"
+            [editable]="true"
+            (edited)="edit(tag, $event)"
+            [aria-description]="'press enter to edit ' + tag"
+          >
+            {{ tag }}
+            <button matChipRemove [attr.aria-label]="'remove ' + tag">
+              <mat-icon>cancel</mat-icon>
+            </button>
+          </mat-chip-row>
+          }
+          <input
+            placeholder="New tag..."
+            [matChipInputFor]="chipGrid"
+            [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+            [matChipInputAddOnBlur]="addOnBlur"
+            (matChipInputTokenEnd)="add($event)"
+          />
+        </mat-chip-grid>
+      </mat-form-field>
+      <div class="center">
+        <label>
+          Upload Thumbnail
+          <input
+            class="thumbnail-input"
+            type="file"
+            (change)="onChange($event)"
+            #videoUpload
+          />
+          @if (isFileUploaded) {
+          <button mat-raised-button (click)="uploadThumbnail()">
+            Upload Thumbnail
+          </button>
+          }
+        </label>
+      </div>
+      <br />
+      <button mat-raised-button type="submit">Save</button>
+    </form>
+  </div>
+  <div class="box3"></div>
+  <div class="box4"></div>
+</div>
