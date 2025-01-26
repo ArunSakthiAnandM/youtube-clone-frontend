@@ -19,6 +19,7 @@ import { VgOverlayPlayModule } from '@videogular/ngx-videogular/overlay-play';
 import { VgBufferingModule } from '@videogular/ngx-videogular/buffering';
 import { ActivatedRoute } from '@angular/router';
 import { SaveVideoDetailsService } from './save-video-details.service';
+import { VideoPlayerComponent } from '../video-player/video-player.component';
 // import { SingleMediaPlayer } from './single-media-player';
 
 @Component({
@@ -35,6 +36,7 @@ import { SaveVideoDetailsService } from './save-video-details.service';
     VgControlsModule,
     VgOverlayPlayModule,
     VgBufferingModule,
+    VideoPlayerComponent,
   ],
   templateUrl: './save-video-details.component.html',
   styleUrl: './save-video-details.component.scss',
@@ -56,6 +58,7 @@ export class SaveVideoDetailsComponent implements OnInit {
   isFileUploaded: Boolean = false;
 
   videoID: string = '';
+  videoUrl: string = '';
 
   constructor(
     private saveVideoDetailsService: SaveVideoDetailsService,
@@ -63,6 +66,9 @@ export class SaveVideoDetailsComponent implements OnInit {
     private _snackbar: MatSnackBar
   ) {
     this.videoID = this.activatedRoute.snapshot.params['videoId'];
+    this.saveVideoDetailsService.getVideo(this.videoID).subscribe((data) => {
+      this.videoUrl = data.url;
+    });
     this.saveVideoDetails = new FormGroup({
       title: this.title,
       description: this.description,
