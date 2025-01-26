@@ -9,6 +9,7 @@ import { VideoDTO } from '../dto/video-dto';
 export class SaveVideoDetailsService {
   uploadThumbnailApiUrl: string = 'http://localhost:8080/api/videos/thumbnail';
   getVideoApiUrl: string = 'http://localhost:8080/api/videos/';
+  saveVideoApiUrl: string = 'http://localhost:8080/api/videos/save';
 
   constructor(private httpClient: HttpClient) {}
 
@@ -23,5 +24,9 @@ export class SaveVideoDetailsService {
 
   getVideo(videoId: string): Observable<VideoDTO> {
     return this.httpClient.get<VideoDTO>(this.getVideoApiUrl + videoId);
+  }
+
+  saveVideo(videoMetadata: VideoDTO): Observable<VideoDTO> {
+    return this.httpClient.post<VideoDTO>(this.saveVideoApiUrl, videoMetadata);
   }
 }

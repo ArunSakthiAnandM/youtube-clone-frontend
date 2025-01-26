@@ -20,6 +20,7 @@ import { VgBufferingModule } from '@videogular/ngx-videogular/buffering';
 import { ActivatedRoute } from '@angular/router';
 import { SaveVideoDetailsService } from '../../services/save-video-details.service';
 import { VideoPlayerComponent } from '../video-player/video-player.component';
+import { VideoDTO } from '../../dto/video-dto';
 // import { SingleMediaPlayer } from './single-media-player';
 
 @Component({
@@ -45,6 +46,7 @@ export class SaveVideoDetailsComponent implements OnInit {
   readonly addOnBlur = true;
   readonly separatorKeysCodes = [ENTER, COMMA] as const;
   readonly tags = signal<string[]>([]);
+  _tags: Array<string> = [];
   readonly announcer = inject(LiveAnnouncer);
 
   saveVideoDetails: FormGroup;
@@ -59,6 +61,7 @@ export class SaveVideoDetailsComponent implements OnInit {
 
   videoID: string = '';
   videoUrl: string = '';
+  thumbnailUrl: string = '';
 
   constructor(
     private saveVideoDetailsService: SaveVideoDetailsService,
@@ -68,6 +71,7 @@ export class SaveVideoDetailsComponent implements OnInit {
     this.videoID = this.activatedRoute.snapshot.params['videoId'];
     this.saveVideoDetailsService.getVideo(this.videoID).subscribe((data) => {
       this.videoUrl = data.url;
+      this.thumbnailUrl = data.thumbnailUrl;
     });
     this.saveVideoDetails = new FormGroup({
       title: this.title,
@@ -81,7 +85,10 @@ export class SaveVideoDetailsComponent implements OnInit {
   add(event: MatChipInputEvent): void {
     const value = (event.value || '').trim();
     if (value) {
-      this.tags.update((tags) => [...tags, value]);
+      this.tags.update((tags) => {
+        this._tags = [...tags, value];
+        return this._tags;
+      });
     }
     event.chipInput!.clear();
   }
@@ -94,7 +101,8 @@ export class SaveVideoDetailsComponent implements OnInit {
       }
       tags.splice(index, 1);
       this.announcer.announce(`Removed $tags.name}`);
-      return [...tags];
+      this._tags = [...tags];
+      return this._tags;
     });
   }
 
@@ -110,7 +118,8 @@ export class SaveVideoDetailsComponent implements OnInit {
         tags[index] = value;
         return [...tags];
       }
-      return tags;
+      this._tags = tags;
+      return this._tags;
     });
   }
 
@@ -132,5 +141,20 @@ export class SaveVideoDetailsComponent implements OnInit {
         });
     }
     this.loading = false;
+  }
+
+  saveVideo() {
+    const videoMetadata: VideoDTO = {
+      id: this.videoID,
+      title: this.saveVideoDetails.get('title')?.value,
+      description: this.saveVideoDetails.get('description')?.value,
+      thumbnailUrl: this.saveVideoDetails.get('')?.value,
+      tags: this._tags,
+      videoStatus: this.saveVideoDetails.get('videoStatus')?.value,
+      url: this.videoUrl,
+    };
+    this.saveVideoDetailsService.saveVideo(videoMetadata).subscribe((data) => {
+      this._snackbar.open('Video Metadata updated successfully', 'ok');
+    });
   }
 }
