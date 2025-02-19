@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { VideoUploadService } from '../../services/video-upload.service';
 import { MatButtonModule } from '@angular/material/button';
 import { Router } from '@angular/router';
+import { VideoService } from '../../services/video.service';
 
 @Component({
   selector: 'app-upload-video',
@@ -15,10 +15,7 @@ export class UploadVideoComponent implements OnInit {
   file: File | null = null;
   isFileUploaded: Boolean = false;
 
-  constructor(
-    private videoUploadService: VideoUploadService,
-    private router: Router
-  ) {}
+  constructor(private videoService: VideoService, private router: Router) {}
 
   ngOnInit(): void {}
 
@@ -31,7 +28,7 @@ export class UploadVideoComponent implements OnInit {
   async uploadVideo() {
     this.loading = true;
     if (this.file !== null) {
-      this.videoUploadService.uploadVideo(this.file).subscribe((data) => {
+      this.videoService.uploadVideo(this.file).subscribe((data) => {
         console.log('Video Sucessfully Uploaded');
         data.videoId;
         this.router.navigateByUrl('/save-video-details/' + data.videoId);

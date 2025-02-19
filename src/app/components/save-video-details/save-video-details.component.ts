@@ -18,7 +18,7 @@ import { VgControlsModule } from '@videogular/ngx-videogular/controls';
 import { VgOverlayPlayModule } from '@videogular/ngx-videogular/overlay-play';
 import { VgBufferingModule } from '@videogular/ngx-videogular/buffering';
 import { ActivatedRoute } from '@angular/router';
-import { SaveVideoDetailsService } from '../../services/save-video-details.service';
+import { VideoService } from '../../services/video.service';
 import { VideoPlayerComponent } from '../video-player/video-player.component';
 import { VideoDTO } from '../../dto/video-dto';
 // import { SingleMediaPlayer } from './single-media-player';
@@ -64,7 +64,7 @@ export class SaveVideoDetailsComponent implements OnInit {
   thumbnailUrl: string = '';
 
   constructor(
-    private saveVideoDetailsService: SaveVideoDetailsService,
+    private saveVideoDetailsService: VideoService,
     private activatedRoute: ActivatedRoute,
     private _snackbar: MatSnackBar
   ) {
@@ -137,6 +137,7 @@ export class SaveVideoDetailsComponent implements OnInit {
         .uploadThumbnail(this.thumbnailFile, this.videoID)
         .subscribe((data) => {
           console.log(data);
+          this.thumbnailUrl = data;
           this._snackbar.open('Upload Successful', 'Ok');
         });
     }
@@ -148,7 +149,7 @@ export class SaveVideoDetailsComponent implements OnInit {
       id: this.videoID,
       title: this.saveVideoDetails.get('title')?.value,
       description: this.saveVideoDetails.get('description')?.value,
-      thumbnailUrl: this.saveVideoDetails.get('')?.value,
+      thumbnailUrl: this.thumbnailUrl,
       tags: this._tags,
       videoStatus: this.saveVideoDetails.get('videoStatus')?.value,
       url: this.videoUrl,

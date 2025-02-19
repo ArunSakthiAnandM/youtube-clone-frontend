@@ -1,0 +1,9 @@
+<div class="video-container">
+  <div class="video-player">
+    @if (isVideoAvailable) {
+    <app-video-player [videoUrl]="videoUrl"></app-video-player>
+    }
+  </div>
+  <div class="gap"></div>
+  <div class="suggestions"></div>
+</div>

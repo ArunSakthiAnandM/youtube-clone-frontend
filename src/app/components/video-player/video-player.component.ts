@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { VgBufferingModule } from '@videogular/ngx-videogular/buffering';
 import { VgControlsModule } from '@videogular/ngx-videogular/controls';
-import { VgApiService, VgCoreModule } from '@videogular/ngx-videogular/core';
+import { VgCoreModule } from '@videogular/ngx-videogular/core';
 import { VgOverlayPlayModule } from '@videogular/ngx-videogular/overlay-play';
 
 @Component({
@@ -20,12 +20,4 @@ export class VideoPlayerComponent {
 
   @Input()
   videoUrl!: string | '';
-
-  constructor() {
-    console.log(this.videoUrl);
-  }
-
-  helper() {
-    console.log(this.videoUrl);
-  }
 }
