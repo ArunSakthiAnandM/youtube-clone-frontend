@@ -1,8 +1,8 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { LoginResponse, OidcSecurityService } from 'angular-auth-oidc-client';
+import { AuthService } from '@auth0/auth0-angular';
 
 @Component({
   selector: 'app-header',
@@ -13,27 +13,19 @@ import { LoginResponse, OidcSecurityService } from 'angular-auth-oidc-client';
 export class HeaderComponent {
   isAuthenticated: boolean = false;
 
-  private readonly oidcSecurityService = inject(OidcSecurityService);
+  constructor(public auth: AuthService) {}
 
   ngOnInit() {
-    this.oidcSecurityService
-      .checkAuth()
-      .subscribe((loginResponse: LoginResponse) => {
-        const { isAuthenticated, userData, accessToken, idToken, configId } =
-          loginResponse;
-
-        console.log('Is app Authenticated : ' + isAuthenticated);
-        this.isAuthenticated = isAuthenticated;
-      });
+    this.auth.isAuthenticated$.subscribe((val) => {
+      this.isAuthenticated = val;
+    });
   }
 
   login() {
-    this.oidcSecurityService.authorize();
+    this.auth.loginWithRedirect();
   }
 
   logout() {
-    this.oidcSecurityService
-      .logoffAndRevokeTokens()
-      .subscribe((result) => console.log(result));
+    this.auth.logout({ logoutParams: { returnTo: document.location.origin } });
   }
 }

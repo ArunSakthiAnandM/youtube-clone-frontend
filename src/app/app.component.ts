@@ -1,7 +1,6 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { HeaderComponent } from './components/header/header.component';
-import { LoginResponse, OidcSecurityService } from 'angular-auth-oidc-client';
 
 @Component({
   selector: 'app-root',
@@ -9,29 +8,6 @@ import { LoginResponse, OidcSecurityService } from 'angular-auth-oidc-client';
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })
-export class AppComponent implements OnInit {
+export class AppComponent {
   title = 'youtube-clone-frontend';
-
-  private readonly oidcSecurityService = inject(OidcSecurityService);
-
-  ngOnInit() {
-    this.oidcSecurityService
-      .checkAuth()
-      .subscribe((loginResponse: LoginResponse) => {
-        const { isAuthenticated, userData, accessToken, idToken, configId } =
-          loginResponse;
-
-        console.log('Is app Authenticated : ' + isAuthenticated);
-      });
-  }
-
-  login() {
-    this.oidcSecurityService.authorize();
-  }
-
-  logout() {
-    this.oidcSecurityService
-      .logoff()
-      .subscribe((result) => console.log(result));
-  }
 }
