@@ -1,0 +1,39 @@
+.youtube-sidenav {
+  width: 240px;
+  margin-top: 56px;
+  background-color: white;
+  border-right: none;
+}
+
+mat-nav-list {
+  padding-top: 12px;
+}
+
+.mat-list-item {
+  height: 40px;
+  padding: 0 24px;
+  font-size: 14px;
+}
+
+mat-icon {
+  margin-right: 24px;
+  color: #606060;
+}
+
+.active {
+  background-color: #e5e5e5;
+}
+
+mat-divider {
+  margin: 12px 0;
+}
+
+.subscriptions-section {
+  .mat-subheader {
+    font-size: 14px;
+    font-weight: 500;
+    color: #606060;
+    padding: 8px 24px;
+    margin: 0;
+  }
+}
