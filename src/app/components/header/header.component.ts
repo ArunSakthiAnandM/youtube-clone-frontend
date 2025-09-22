@@ -28,4 +28,6 @@ export class HeaderComponent {
   logout() {
     this.auth.logout({ logoutParams: { returnTo: document.location.origin } });
   }
+
+  goToAccount() {}
 }

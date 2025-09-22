@@ -6,7 +6,7 @@
       </button>
       <span class="youtube-logo">
         <mat-icon class="youtube-icon">smart_display</mat-icon>
-        YouTube
+        YouTube Clone
       </span>
     </div>
     <div class="end">
@@ -17,7 +17,7 @@
         <mat-icon>notifications</mat-icon>
       </button>
       @if (isAuthenticated) {
-      <button mat-icon-button class="account-button">
+      <button mat-icon-button class="account-button" (click)="goToAccount()">
         <mat-icon>account_circle</mat-icon>
       </button>
       } @else {
