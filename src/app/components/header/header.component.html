@@ -1,24 +1,31 @@
 <mat-toolbar>
   <mat-toolbar-row>
-    <span>Youtube Clone</span>
-    <span class="example-spacer"></span>
-    <button
-      mat-icon-button
-      class="example-icon favorite-icon"
-      aria-label="Example icon-button with heart icon"
-    >
-      <mat-icon>video_call</mat-icon>
-    </button>
-    @if (isAuthenticated) {
-    <button
-      mat-icon-button
-      class="example-icon"
-      aria-label="Example icon-button with share icon"
-    >
-      <mat-icon>account_circle</mat-icon>
-    </button>
-    } @else {
-    <button mat-raised-button (click)="login()">Login</button>
-    }
+    <div class="start">
+      <button mat-icon-button>
+        <mat-icon>menu</mat-icon>
+      </button>
+      <span class="youtube-logo">
+        <mat-icon class="youtube-icon">smart_display</mat-icon>
+        YouTube
+      </span>
+    </div>
+    <div class="end">
+      <button mat-icon-button>
+        <mat-icon>video_call</mat-icon>
+      </button>
+      <button mat-icon-button>
+        <mat-icon>notifications</mat-icon>
+      </button>
+      @if (isAuthenticated) {
+      <button mat-icon-button class="account-button">
+        <mat-icon>account_circle</mat-icon>
+      </button>
+      } @else {
+      <button mat-raised-button color="primary" (click)="login()">
+        <mat-icon>account_circle</mat-icon>
+        Sign in
+      </button>
+      }
+    </div>
   </mat-toolbar-row>
 </mat-toolbar>
