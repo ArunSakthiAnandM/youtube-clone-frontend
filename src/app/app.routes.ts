@@ -3,10 +3,13 @@ import { UploadVideoComponent } from './components/upload-video/upload-video.com
 import { HomeComponent } from './components/home/home.component';
 import { SaveVideoDetailsComponent } from './components/save-video-details/save-video-details.component';
 import { VideoDetailsComponent } from './components/video-details/video-details.component';
+import { HistoryComponent } from './components/history/history.component';
+import { LikedVideosComponent } from './components/liked-videos/liked-videos.component';
+import { SubscriptionsComponent } from './components/subscriptions/subscriptions.component';
 
 export const routes: Routes = [
   {
-    path: 'home',
+    path: '',
     component: HomeComponent,
   },
   {
@@ -20,5 +23,17 @@ export const routes: Routes = [
   {
     path: 'video-details/:videoId',
     component: VideoDetailsComponent,
+  },
+  {
+    path: 'history',
+    component: HistoryComponent,
+  },
+  {
+    path: 'liked-videos',
+    component: LikedVideosComponent,
+  },
+  {
+    path: 'subscriptions',
+    component: SubscriptionsComponent,
   },
 ];
