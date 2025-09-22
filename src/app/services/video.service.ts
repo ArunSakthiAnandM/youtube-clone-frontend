@@ -3,14 +3,16 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { VideoDTO } from '../dto/video-dto';
 import { UploadVideoResponse } from '../dto/UploadVideoResponse';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class VideoService {
-  uploadThumbnailApiUrl: string = 'http://localhost:8080/api/videos/thumbnail';
-  getVideoApiUrl: string = 'http://localhost:8080/api/videos/';
-  saveVideoApiUrl: string = 'http://localhost:8080/api/videos/save';
+  private baseUrl = `${environment.apiBaseUrl}/api`;
+  uploadThumbnailApiUrl: string = `${this.baseUrl}/videos/thumbnail`;
+  getVideoApiUrl: string = `${this.baseUrl}/videos/`;
+  saveVideoApiUrl: string = `${this.baseUrl}/videos/save`;
 
   constructor(private httpClient: HttpClient) {}
 
